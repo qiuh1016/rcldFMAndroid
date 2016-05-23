@@ -17,7 +17,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="0dp"
             android:textColor="#2c3e58"
             android:textSize="15sp" />
 
@@ -36,6 +36,9 @@
             android:editable="true"
             android:enabled="true"
             android:focusable="true"
-            android:textColor="#616161" />
+            android:textColor="#616161"
+            android:singleLine="true"
+            android:textAlignment="textEnd"
+            android:layout_marginRight="0dp" />
     </RelativeLayout>
 </LinearLayout>
