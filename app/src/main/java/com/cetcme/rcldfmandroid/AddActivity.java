@@ -1,5 +1,10 @@
 package com.cetcme.rcldfmandroid;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -37,6 +42,12 @@ public class AddActivity extends AppCompatActivity {
     private String[] shipInfoList = {"渔船编号", "船名", "船长", "上甲板长度", "船宽", "船深", "材质", "伏休期起始时间", "伏休期结束时间", "建成时间", "制卡时间"};
     private String[] titleList = {"设备", "负责人", "船东", "安装人员", "渔船身份标签"};
     private int[] titleNum;
+
+    private SQLiteDatabase db;
+    private String db_name = "info.db";
+    private String table_name = "device";
+    private DbHelper helper = new DbHelper(this, db_name, null, 1);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +73,9 @@ public class AddActivity extends AppCompatActivity {
                 Log.i("Main", "ListItem: " + i + ":" + "name: " + datalist.get(i).get("name") + "; data: " + datalist.get(i).get("data"));
             }
         });
+
+        //db
+        db = helper.getWritableDatabase();
     }
 
     @Override
@@ -73,8 +87,28 @@ public class AddActivity extends AppCompatActivity {
         add.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                Log.i("Main", "clicked");
-                Log.i("Main", datalist.toString());
+//                Log.i("Main", "clicked");
+//                Log.i("Main", datalist.toString());
+//                saveData();
+                db.execSQL("DELETE FROM User_Table");
+//                db.execSQL("INSERT INTO User_Table VALUES (?,?,?,?,?)", new Object[]{10000,"123456","jdh",0,0});
+//                db.execSQL("INSERT INTO User_Table VALUES (?,?,?,?,?)", new Object[]{11100,"12323456","jdh",1,2});
+                ContentValues cv = new ContentValues();
+                cv.put("name","qh");
+                cv.put("age",28);
+                db.insert("User_Table",null,cv);
+
+                cv.put("name","qh1");
+                cv.put("age",28);
+                db.insert("User_Table",null,cv);
+
+                Cursor cursor = db.rawQuery("SELECT * FROM User_Table WHERE age = ?",new String[]{"28"});
+                while (cursor.moveToNext())
+                {
+                    String str = "name:"+cursor.getString(0) + " age:"+cursor.getInt(1);
+                    Log.i("str:", str);
+                }
+
                 return false;
             }
         });
@@ -218,4 +252,13 @@ public class AddActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.push_right_in_no_alpha,
                 R.anim.push_right_out_no_alpha);
     }
+
+    private void saveData() {
+        ContentValues cv = new ContentValues();
+        for (int i = 0; i < datalist.size(); i++) {
+            cv.put(datalist.get(i).get("name").toString(), i);
+        }
+        db.insert(table_name, "", cv);
+    }
 }
+
