@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,13 +78,14 @@ public class AddActivity extends AppCompatActivity {
 
         //db
         db = helper.getWritableDatabase();
+//        db=SQLiteDatabase.openOrCreateDatabase("/data/data/com.lingdududu.db/databases/stu.db",null);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        MenuItem add = menu.add(0,0,0,"Add");
+        MenuItem add = menu.add(0,0,1,"Add");
         add.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         add.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -90,7 +93,7 @@ public class AddActivity extends AppCompatActivity {
 //                Log.i("Main", "clicked");
 //                Log.i("Main", datalist.toString());
 //                saveData();
-                db.execSQL("DELETE FROM User_Table");
+//                db.execSQL("DELETE FROM User_Table");
 //                db.execSQL("INSERT INTO User_Table VALUES (?,?,?,?,?)", new Object[]{10000,"123456","jdh",0,0});
 //                db.execSQL("INSERT INTO User_Table VALUES (?,?,?,?,?)", new Object[]{11100,"12323456","jdh",1,2});
                 ContentValues cv = new ContentValues();
@@ -112,6 +115,18 @@ public class AddActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
+        MenuItem qrCode = menu.add(0,0,0,"QRCode");
+        qrCode.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        qrCode.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Toast.makeText(getApplicationContext(),"待开发",Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
         return true;
     }
 
@@ -165,7 +180,7 @@ public class AddActivity extends AppCompatActivity {
         @Override
         public View getView(final int i, View view, ViewGroup viewGroup) {
             View titleView = LayoutInflater.from(getApplication()).inflate(R.layout.list_view_title, null);
-            View contentView = view = LayoutInflater.from(getApplication()).inflate(R.layout.list_view_cell, null);
+            View contentView = LayoutInflater.from(getApplication()).inflate(R.layout.list_view_cell, null);
             TextView textView = (TextView) contentView.findViewById(R.id.textViewInCell);
             EditText editText = (EditText) contentView.findViewById(R.id.editTextInCell);
             TextView titleTextView = (TextView) titleView.findViewById(R.id.titleTextView);

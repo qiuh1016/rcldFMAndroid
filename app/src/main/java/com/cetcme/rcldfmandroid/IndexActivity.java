@@ -219,35 +219,19 @@ public class IndexActivity extends AppCompatActivity implements View.OnClickList
             case R.id.addButton:
 //                Bundle bundle = new Bundle();
 //                bundle.putString("myShipInfo", myShipInfoJSON.toString());
-                Intent myShipIntent = new Intent();
-                myShipIntent.setClass(getApplicationContext(), AddActivity.class);
+                Intent addIntent = new Intent();
+                addIntent.setClass(getApplicationContext(), AddActivity.class);
 //                myShipIntent.putExtras(bundle);
-                startActivity(myShipIntent);
+                startActivity(addIntent);
                 overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
                 break;
-//            case R.id.fenceButton:
-//                Intent fenceIntent = new Intent();
-//                fenceIntent.setClass(getApplicationContext(), FenceActivity.class);
-//                startActivity(fenceIntent);
-//                overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
-//                break;
-//            case R.id.routeButton:
-////                Intent recordIntent = new Intent();
-////                recordIntent.setClass(getApplicationContext(), RecordActivity.class);
-////                startActivity(recordIntent);
-////                overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
-//
-//                Intent routeIntent = new Intent();
-//                routeIntent.setClass(getApplicationContext(), RouteActivity.class);
-//                startActivity(routeIntent);
-//                overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
-//                break;
-//            case R.id.helpButton:
-//                Intent helpIntent = new Intent();
-//                helpIntent.setClass(getApplicationContext(), HelpActivity.class);
-//                startActivity(helpIntent);
-//                overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
-//                break;
+            case R.id.listButton:
+                Intent listIntent = new Intent();
+                listIntent.setClass(getApplicationContext(), ListActivity.class);
+                startActivity(listIntent);
+                overridePendingTransition(R.anim.push_left_in_no_alpha, R.anim.push_left_out_no_alpha);
+                break;
+
 
         }
     }
